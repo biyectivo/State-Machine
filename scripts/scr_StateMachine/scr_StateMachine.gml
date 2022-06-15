@@ -1,5 +1,5 @@
 #macro print show_debug_message
-	
+
 #region FSM
 		
 	function State(_state_name) constructor {
@@ -50,6 +50,7 @@
 		
 		add = function(_state) {
 			ds_map_add(states, _state.state_name, _state);
+			return _state;
 		}
 		
 		add_transition = function(_transition) {
@@ -86,7 +87,7 @@
 				});
 					
 				var _transition = _applicable_transitions[0];
-				print("Transition from "+current_state_name+" (id="+str(states[? current_state_name].state_id)+") to "+_transition.new_state_name+" (id="+str(states[? _transition.new_state_name].state_id)+"), trx priority="+str(_transition.priority));
+				//print(str(other.curr_max_jumps)+" "+current_state_name+" -> "+_transition.new_state_name);
 				// Leave state				
 				if (ds_exists(states, ds_type_map) && ds_map_exists(states, current_state_name)) states[? current_state_name].leave();
 					
@@ -105,9 +106,12 @@
 		cleanup = function() {
 			if (ds_exists(states, ds_type_map)) ds_map_destroy(states);
 		}
+		
+		return self;
 	}
 	
 	
+
 #endregion
 
 #region Helper functions
@@ -156,6 +160,16 @@
 		}
 		else {
 			return -1;
+		}
+	}
+	
+	function array_resize_from_end(_array, _new_size) {
+		var _n = array_length(_array);
+		if (_new_size < _n) {		
+			for (var _i=0; _i<_new_size; _i++) {
+				_array[@_i] = _array[_i+_n-_new_size];
+			}
+			array_resize(_array, _new_size);
 		}
 	}
 	
