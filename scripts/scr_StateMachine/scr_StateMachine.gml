@@ -54,7 +54,21 @@
 		}
 		
 		self.step = function() {
-			if (ds_exists(self.states, ds_type_map) && ds_map_exists(self.states, self.current_state_name))			self.states[? self.current_state_name].step();
+			if (ds_exists(self.states, ds_type_map) && ds_map_exists(self.states, self.current_state_name))		self.states[? self.current_state_name].step();
+		}
+		
+		self.trigger = function(_state_name) {			
+			// Leave state				
+			if (ds_exists(self.states, ds_type_map) && ds_map_exists(self.states, self.current_state_name))		self.states[? self.current_state_name].leave();
+			// Push current
+			array_push(self.state_name_history, self.current_state_name);
+			// Set and enter new state
+			self.current_state_name = _state_name;			
+			if (ds_exists(self.states, ds_type_map) && ds_map_exists(self.states, self.current_state_name))		self.states[? self.current_state_name].enter();
+			
+				
+			// Trim state history
+			if (array_length(self.state_name_history) > self.max_state_name_history)							array_resize_from_end(self.state_name_history, self.max_state_name_history);
 		}
 		
 		self.transition = function() {
@@ -76,19 +90,10 @@
 						return _e1.priority - _e2.priority;
 					}
 				});
-					
-				var _transition = _applicable_transitions[0];
-				// Leave state				
-				if (ds_exists(self.states, ds_type_map) && ds_map_exists(self.states, self.current_state_name))		self.states[? current_state_name].leave();
-				// Push current
-				array_push(self.state_name_history, self.current_state_name);
-				// Set and enter new state
-				self.current_state_name = _transition.new_state_name;			
-				if (ds_exists(self.states, ds_type_map) && ds_map_exists(self.states, self.current_state_name))		self.states[? current_state_name].enter();
-			
 				
-				// Trim state history
-				if (array_length(self.state_name_history) > self.max_state_name_history)							array_resize_from_end(state_name_history, max_state_name_history);
+				// Trigger the transition
+				var _transition = _applicable_transitions[0];
+				self.trigger(_transition.new_state_name);
 			}
 				
 		}

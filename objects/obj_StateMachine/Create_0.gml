@@ -40,7 +40,10 @@ with (_state) {
 	}
 	step = function() {
 		other.image_index = 2;
-	}		
+	}
+	leave = function() {
+		show_debug_message("Voy a revivir...");
+	}
 }
 fsm.add(_state);
 	
@@ -53,6 +56,7 @@ fsm.add_transition(new Transition("Move", "Idle", function() {
 fsm.add_transition(new Transition(["Idle","Move"], "Die", function() {
 	return keyboard_check_pressed(vk_enter);
 }, 100));
+
 
 
 
