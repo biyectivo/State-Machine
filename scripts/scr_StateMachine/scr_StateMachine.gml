@@ -1,11 +1,10 @@
-#macro print show_debug_message
-
 #region FSM
 	
 	function State(_state_name) constructor {
 		static num = 0;
 		num += 1;
-	
+		
+		self.target_id = other.target_id;
 		self.state_id = num;
 		self.state_name = _state_name;
 		self.enter = function() {};
@@ -15,6 +14,7 @@
 	}
 		
 	function Transition(_current_state_name, _new_state_name, _condition, _priority = 0) constructor {
+		self.target_id = other.target_id;
 		self.current_state_name = _current_state_name;
 		self.new_state_name = _new_state_name;
 		self.condition = _condition;
@@ -22,6 +22,7 @@
 	}
 		
 	function StateMachine(_name="") constructor {
+		self.target_id = other.id;
 		self.state_machine_name = _name;
 		self.states = ds_map_create();
 		self.transitions = [];
