@@ -4,7 +4,7 @@
 		static num = 0;
 		num += 1;
 		
-		self.target_id = other.target_id;
+		self.target_id = noone;
 		self.state_id = num;
 		self.state_name = _state_name;
 		self.enter = function() {};
@@ -14,7 +14,7 @@
 	}
 		
 	function Transition(_current_state_name, _new_state_name, _condition, _priority = 0) constructor {
-		self.target_id = other.target_id;
+		self.target_id = noone;
 		self.current_state_name = _current_state_name;
 		self.new_state_name = _new_state_name;
 		self.condition = _condition;
@@ -47,11 +47,14 @@
 		
 		self.add = function(_state) {
 			ds_map_add(self.states, _state.state_name, _state);
+			self.states[? _state.state_name].target_id = self.target_id;
 			return _state;
 		}
 		
 		self.add_transition = function(_transition) {
+			_transition.target_id = self.target_id;
 			array_push(self.transitions, _transition);
+			return _transition;
 		}
 		
 		self.step = function() {
