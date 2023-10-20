@@ -1,9 +1,12 @@
 {
   "FolderOrderSettings": [
     {"name":"Scripts","order":1,"path":"folders/Scripts.yy",},
+    {"name":"Old","order":2,"path":"folders/Old.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"scr_Movement","order":1,"path":"scripts/scr_Movement/scr_Movement.yy",},
+    {"name":"Object2","order":1,"path":"objects/Object2/Object2.yy",},
+    {"name":"obj_StateMachine2","order":2,"path":"objects/obj_StateMachine2/obj_StateMachine2.yy",},
     {"name":"scr_Statistics","order":2,"path":"scripts/scr_Statistics/scr_Statistics.yy",},
   ],
 }
