@@ -133,7 +133,7 @@
 				// Sort by priority and then by newest state
 				array_sort(_applicable_transitions, function(_e1, _e2) {
 					if (_e1.priority == _e2.priority) {
-						return self.__states[$ _e2.to].state_id - self.__states[? _e1.to].state_id;
+						return self.__states[$ _e2.to].state_id - self.__states[$ _e1.to].state_id;
 					}
 					else {
 						return _e1.priority - _e2.priority;
@@ -147,6 +147,13 @@
 				
 		}
 		
+		static function_exists = function(_function) {
+			return variable_struct_exists(self.__states[$ self.__current_state_name].functions, _function);
+		}
+		
+		static call = function(_function, _param_array = undefined) {
+			self.__states[$ self.__current_state_name].functions[$ _function](_param_array);
+		}
 		
 		///@function			array_resize_from_end(_array, _new_size)
 		///@description			resizes the array starting from the end working left

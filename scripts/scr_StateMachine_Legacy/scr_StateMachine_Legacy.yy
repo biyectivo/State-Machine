@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "scr_StateMachine_Legacy",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Old",
-    "path": "folders/Old.yy",
+  "$GMScript":"v1",
+  "%Name":"scr_StateMachine_Legacy",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_StateMachine_Legacy",
+  "parent":{
+    "name":"Old",
+    "path":"folders/Old.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

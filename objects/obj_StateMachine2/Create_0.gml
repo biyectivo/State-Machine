@@ -1,8 +1,8 @@
-hp = 3;
+self.hp = 3;
 
-fsm = new StateMachine();
+self.fsm = new StateMachine();
 
-fsm.add("Idle", {
+self.fsm.add("Idle", {
 	enter: function() {
 		show_debug_message("Cambié a idle");
 		self.image_index = 0;
@@ -14,10 +14,13 @@ fsm.add("Idle", {
 	},
 	leave: function() {
 		show_debug_message("Bye idle");	
+	},
+	test: function(_param_array = undefined) {
+		show_debug_message(_param_array == undefined ? "LA" : _param_array[0]);
 	}
 });
 
-fsm.add("Move", {
+self.fsm.add("Move", {
 	enter: function() {
 		show_debug_message("Cambié a move");
 	},
@@ -27,30 +30,36 @@ fsm.add("Move", {
 	},
 	leave: function() {
 		show_debug_message("Bye move");	
+	},
+	test: function() {
+		show_debug_message("LA");
 	}
 });
 
-fsm.add("Die", {
+self.fsm.add("Die", {
 	enter: function() {
 		show_debug_message("Morí");
 		self.image_index = 2;
 	},
 	leave: function() {
 		show_debug_message("Voy a revivir...");
+	},
+	test: function() {
+		show_debug_message("LA");
 	}
 });
 
-fsm.add_transition("Idle", "Move", function() {
+self.fsm.add_transition("Idle", "Move", function() {
 	return keyboard_check(vk_space);
 });
-fsm.add_transition("Move", "Idle", function() {
+self.fsm.add_transition("Move", "Idle", function() {
 	return !keyboard_check(vk_space);
 });
-fsm.add_transition([], "Die", function() {
+self.fsm.add_transition([], "Die", function() {
 	return keyboard_check_pressed(vk_enter);
 }, 100);
 
 
 
 
-fsm.init("Idle");
+self.fsm.init("Idle");
