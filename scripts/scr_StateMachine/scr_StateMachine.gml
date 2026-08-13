@@ -87,7 +87,7 @@
 				if (_idx >= 0) array_delete(_arr, _idx, 1);
 			}
 			
-			array_push(self.__transitions, { from: _arr, to: _to_state, condition: _condition, priority: _priority });
+			array_push(self.__transitions, { from: _arr, to: _to_state, condition: method(self.__target_id, _condition), priority: _priority });
 		}
 		
 		static step = function() {
