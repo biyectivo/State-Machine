@@ -1,6 +1,6 @@
 /// @feather ignore all
 
-#macro STATE_MACHINE_VERSION 2026.10
+#macro STATE_MACHINE_VERSION "2026.10.1"
 
 #region FSM
 
@@ -184,9 +184,9 @@
             var _n = array_length(self.__transitions);
             for (var _i=0; _i<_n; _i++) {
                 var _trx = self.__transitions[_i];
-                if (_trx.condition(_trx.condition_param_struct) && array_find_index(self.__transitions[_i].from, method({state_name: self.__current_state_name}, function(_elem) {
+                if (array_find_index(self.__transitions[_i].from, method({state_name: self.__current_state_name}, function(_elem) {
                         return _elem == state_name;
-                })) != -1) {
+                })) != -1 && _trx.condition(_trx.condition_param_struct)) {
                     array_push(_applicable_transitions, _trx);
                 }
             }
